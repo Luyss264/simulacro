@@ -2,8 +2,8 @@
     {
         "ID": "1234",
         "nombre": "kimberly",
-        "edad": 30,
+        "edad": 40,
         "plan": "anual",
-        "estado": "inactivo"
+        "estado": "activo"
     }
 ]

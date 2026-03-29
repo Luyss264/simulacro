@@ -155,7 +155,7 @@ def buscar_cliente(lista_clientes):
 def actualizar_cliente(lista_clientes):
     cliente_actualizar = input('\nIngrese el nombre del cliente que quiere actualizar: ').strip().replace(" ","_").lower()
     
-    existe: False
+    existe= False
     for i in lista_clientes:
         if cliente_actualizar == i['nombre']:
             existe= True
@@ -163,67 +163,76 @@ def actualizar_cliente(lista_clientes):
             print("---------")
             print('No se puede editar el ID ya que es unico')
             while True:
-                nombre_cliente = input('\nIngrese el nuevo nombre del cliente: ').replace(" ","_").strip().lower()
+                nuevo_nombre_cliente = input('\nIngrese el nuevo nombre del cliente: ').replace(" ","_").strip().lower()
                 datonumero = False
-                for i in nombre_cliente:
-                    if i.isdigit():
+                for x in nuevo_nombre_cliente:
+                    if x.isdigit():
                         datonumero = True
                 
                 if datonumero == True:
                     print('\nNo se aceptan numeros en el nombre')
                     
                 else:
+                    i['nombre'] = nuevo_nombre_cliente
                     break
             while True:
                 try:
-                    edad_cliente = int(input('\nIngrese la nueva edad del cliente'))
-                    if edad_cliente > 12:
+                    nueva_edad_cliente = int(input('\nIngrese la nueva edad del cliente'))
+                    if nueva_edad_cliente > 12:
+                        i['edad'] = nueva_edad_cliente
                         break
-                    elif edad_cliente <= 0:
+                    elif nueva_edad_cliente <= 0:
                         print('\nLa edad del cliente es invalida')
                     else:
                         print('\nEl cliente es muy joven')
                 except:
                     print('\nIngrese un dato valido')
             while True:
-                plan_cliente = input('\nIngrese el tipo de plan:\nMensual\nTrimestral\nAnual').lower().strip()
-                if plan_cliente == 'mensual' or plan_cliente == 'trimestral' or plan_cliente == 'anual':
+                nuevo_plan_cliente = input('\nIngrese el tipo de plan:\nMensual\nTrimestral\nAnual').lower().strip()
+                if nuevo_plan_cliente == 'mensual' or nuevo_plan_cliente == 'trimestral' or nuevo_plan_cliente == 'anual':
+                    i['plan'] = nuevo_plan_cliente
                     break
                 else:
                     print('\nIngrese un dato valido')
             
             while True:
-                estado_cliente = input('\n¿Está el cliente activo o inactivo?').lower().strip()
-                if estado_cliente == 'activo' or estado_cliente == 'inactivo':
+                nuevo_estado_cliente = input('\n¿Está el cliente activo o inactivo?').lower().strip()
+                if nuevo_estado_cliente == 'activo' or nuevo_estado_cliente == 'inactivo':
+                    i['estado'] = nuevo_estado_cliente
                     break
                 else:
                     print('\nIngrese un dato valido')
                     
-            print(f'\nActualizaste: ID:{i['ID']} | Cliente:{i['nombre']} | Edad:{i['edad']} | Plan:{i['plan']} | Estado:{i['estado']}')   
- 
+            print(f'\nActualizaste: ID:{i['ID']} | Cliente:{i['nombre']} | Edad:{i['edad']} | Plan:{i['plan']} | Estado:{i['estado']}')
+            break   
+    if not existe:
+        print('\nCliente no encontrado')
+        
 def eliminar_cliente(lista_clientes):
+    
     while True:
         consultar_cliente = input('\nIngrese el ID del cliente que desea eliminar: ')
-        existeunalfabetico= False
-        for i in consultar_cliente:
-            if not i.isdigit():
-                existeunalfabetico = True
-        if existeunalfabetico == True:
-            print('\nNo deben haber datos alfabeticos')
+        if not consultar_cliente.isdigit(): # Simplificado: isdigit() ya hace el trabajo
+            print('\nSolo se admiten números')
         elif len(consultar_cliente) != 4:
-            print('\nSolo deben haber 4 digitos')
+            print('\nSolo deben haber 4 dígitos')
         else:
             break
     
-    existe = False
+    cliente_encontrado = None
     
+    # Buscamos el objeto cliente primero
     for i in lista_clientes:
         if i['ID'] == consultar_cliente:
-            existe = True
-            print(f'\nSe eliminó a {i['nombre']}')
-            lista_clientes.remove(i)
+            cliente_encontrado = i
+            break
             
-    if not existe:
+    if cliente_encontrado:
+        print(f"\nSe eliminó a {cliente_encontrado['nombre']}")
+        lista_clientes.remove(cliente_encontrado)
+        # Importante: El archivo JSON se actualiza en el archivo principal (main) 
+        # justo después de llamar a esta función, así que esto debería funcionar.
+    else:
         print('\nNo se encontró el cliente')
             
             

@@ -20,9 +20,11 @@ while option != '6':
     
     elif option == '4':
         actualizar_cliente(lista_clientes)
+        agregar_json(lista_clientes)
     
     elif option == '5':
         eliminar_cliente(lista_clientes)
+        agregar_json(lista_clientes)
     
     elif option == '6':
         print('\nAdiós\n')
