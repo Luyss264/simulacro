@@ -1,0 +1,9 @@
+[
+    {
+        "ID": "1234",
+        "nombre": "kimberly",
+        "edad": 30,
+        "plan": "anual",
+        "estado": "inactivo"
+    }
+]
